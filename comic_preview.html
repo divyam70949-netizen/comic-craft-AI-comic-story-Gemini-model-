@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}{{ comic.title }} — ComicCraft{% endblock %}
+{% block content %}
+<div class="preview-head">
+  <div><p class="eyebrow">COMIC PREVIEW</p><h1>{{ comic.title }}</h1></div>
+  <div class="actions-row">
+    <a class="button" href="/download/{{ comic.id }}">⬇ Download PDF</a>
+    <a class="button secondary" href="/">＋ New Comic</a>
+  </div>
+</div>
+
+{% for panel in comic.panels %}
+<article class="panel card">
+  <div class="panel-number">PANEL {{ panel.panel_number }}</div>
+  <h2>{{ panel.title }}</h2>
+  <div class="panel-grid">
+    <div>
+      <img class="comic-image" src="{{ panel.image_url }}" alt="Comic illustration for panel {{ panel.panel_number }}">
+    </div>
+    <div class="panel-copy">
+      <p class="scene"><em>{{ panel.scene_description }}</em></p>
+      <div class="text-box"><strong>Caption</strong><p>{{ panel.caption }}</p></div>
+      <div class="text-box"><strong>Narration</strong><p>{{ panel.narration }}</p></div>
+      {% if panel.dialogue %}<div class="dialogue"><strong>Dialogue</strong><p>“{{ panel.dialogue }}”</p></div>{% endif %}
+      <details><summary>Image prompt</summary><p>{{ panel.image_prompt }}</p></details>
+    </div>
+  </div>
+</article>
+{% endfor %}
+
+<div class="bottom-cta"><a class="button" href="/download/{{ comic.id }}">⬇ Download Your Comic as PDF</a></div>
+{% endblock %}
